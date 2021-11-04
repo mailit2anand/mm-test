@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sampleapp-ingress
+spec:
+  tls:
+    - secretName: sampleapp-secret
+      hosts:
+        - '*.sampleapp-mmtest'
+  rules:
+    - host: sampleapp-mmtest
+      http:
+        paths:
+          - backend:
+             serviceName: sampleapp-service
+             servicePort: 80

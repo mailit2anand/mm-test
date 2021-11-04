@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sampleapp
+  template:
+    metadata:
+      labels:
+        app: sampleapp
+    spec:
+      containers:
+      - name: sampleapp
+        image: sampleapp:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: sampleapp-persistent-storage
+            mountPath: /usr/local/tomcat/logs
+      volumes:
+        - name: sampleapp-persistent-storage
+          persistentVolumeClaim:
+            claimName: sampleapp-claim
